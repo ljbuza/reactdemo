@@ -22,7 +22,7 @@ class SearchBox extends React.Component {
               id="search"
               placeholder="Search..."
               value={this.props.filterText}
-              ref={(input) => this.filterTextInput = input}
+              ref={input => this.filterTextInput = input}
               onChange={this.handleChange}
             />
           </div>
@@ -42,34 +42,9 @@ class SearchableBooksTable extends React.Component {
     super(props);
     this.state = {
       filterText: '',
-    };
-    this.handleUserInput = this.handleUserInput.bind(this);
-  }
-
-  handleUserInput(filterText) {
-    this.setState({
-      filterText,
-    });
-  }
-  render() {
-    return (
-      <div>
-        <SearchBox
-          filterText={this.state.filterText}
-          onUserInput={this.handleUserInput}
-        />
-        <BooksTable />
-      </div>
-    );
-  }
-}
-
-class BooksTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
       data: [],
     };
+    this.handleUserInput = this.handleUserInput.bind(this);
   }
 
   componentDidMount() {
@@ -84,32 +59,53 @@ class BooksTable extends React.Component {
     })
     .then(response => response.json())
     .then((data) => {
-      // console.log('got data', data);
       this.setState({ data });
     });
+  }
 
-    // $.ajax({
-    //   url: this.props.url,
-    //   datatype: 'json',
-    //   cache: false,
-    //   success: function (data) {
-    //     this.setState({ data });
-    //   }.bind(this),
-    // });
+  handleUserInput(filterText) {
+    this.setState({
+      filterText,
+    });
   }
 
   render() {
-    if (this.state.data) {
-      this.bookRows = this.state.data.map(
-         book => <tr><td> {book.title} </td><td> {book.author} </td></tr>);
-    } return (
+    return (
+      <div>
+        <SearchBox
+          filterText={this.state.filterText}
+          onUserInput={this.handleUserInput}
+        />
+        <BooksTable
+          books={this.state.data}
+          filterText={this.state.filterText}
+        />
+      </div>
+    );
+  }
+}
+
+class BooksTable extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //  }
+
+  render() {
+    const bookRows = [];
+    this.props.books.forEach((book) => {
+      if (book.title.indexOf(this.props.filterText) === -1) {
+        return;
+      }
+      bookRows.push(<tr className={this.state.active ? 'active' : ''}><td> {book.title} </td><td> {book.author} </td></tr>);
+    });
+    return (
       <div>
         <table className="col-sm-8 table table-striped">
           <thead>
             <tr><th>Title</th><th>Author</th></tr>
           </thead>
           <tbody>
-            {this.bookRows}
+            {bookRows}
           </tbody>
         </table>
       </div>
@@ -117,30 +113,16 @@ class BooksTable extends React.Component {
   }
 }
 
-BooksTable.propTypes = {
+SearchableBooksTable.propTypes = {
   url: React.PropTypes.string,
 };
 
-BooksTable.defaultProps = {
+SearchableBooksTable.defaultProps = {
   url: '/demo/',
   pollInterval: 1000,
 };
 
 ReactDOM.render(
   <SearchableBooksTable />,
-  document.getElementById('container')
+  document.getElementById('container'),
 );
-//   loadBooksFromServer: () => {
-//     $.ajax({
-//       url: this.props.url,
-//       datatype: 'json',
-//       cache: false,
-//       success: (data) => {
-//           this.setState({data: data});
-//         }.bind(this)
-//       // error: (xhr, status, err) => {
-//       //     console.error(this.props.url, status, err.toString());
-//       //   }.bind(this)
-//     })
-//   },
-
