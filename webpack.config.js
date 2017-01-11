@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
+// const CommonsChunkPlugin = require('./node_modules/webpack/lib/optimize/CommonsChunkPlugin.js');
 
 module.exports = {
     // the base directory (absolute path) for resolving the entry option
@@ -9,18 +10,27 @@ module.exports = {
     // the entry point we created earlier. Note that './' means
     // your current directory. You don't have to specify the extension  now,
     // because you will specify extensions later in the `resolve` section
-  entry: './assets/js/index',
+  // entry: './assets/js',
+  entry: {
+    main: './assets/js/index',
+    cust: './assets/js/cust',
+  },
 
   output: {
         // where you want your compiled bundle to be stored
     path: path.resolve('./assets/bundles/'),
         // naming convention webpack should use for your files
     filename: '[name]-[hash].js',
+    // chunkFilename: '[id].chunk.js',
   },
 
   plugins: [
         // tells webpack where to store data about your bundles.
     new BundleTracker({ filename: './webpack-stats.json' }),
+    // new CommonsChunkPlugin({
+    //   filename: 'commons.jsx',
+    //   name: 'commons',
+    // })
         // makes jQuery available in every module
     //   new webpack.ProvidePlugin({
     //       $: 'jquery',

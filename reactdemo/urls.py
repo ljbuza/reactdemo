@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^demo/', include('demo.urls')),
     url(r'^$', TemplateView.as_view(template_name='index.html')),
+    url(r'^cust/$', TemplateView.as_view(template_name='cust.html')),
 ]

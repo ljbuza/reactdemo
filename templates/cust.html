@@ -1,0 +1,12 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <title>Customer View</title>
+    </head>
+    <body>
+        <div class="container" id="container"></div>
+        {% render_bundle 'cust' %}
+    </body>
+</html>

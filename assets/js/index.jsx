@@ -49,8 +49,10 @@ class SearchableBooksTable extends React.Component {
 
   componentDidMount() {
     this.loadBooksFromServer();
-        // setInterval(this.loadBooksFromServer,
-        //             this.props.pollInterval)
+    // setInterval(this.loadBooksFromServer.bind(this), 1000);
+    // const intv = setInterval(this.loadBooksFromServer,
+    //                 this.props.pollInterval);
+    // this.setState({intv: intv});
   }
 
   loadBooksFromServer() {
@@ -96,7 +98,7 @@ class BooksTable extends React.Component {
       if (book.title.indexOf(this.props.filterText) === -1) {
         return;
       }
-      bookRows.push(<tr className={this.state.active ? 'active' : ''}><td> {book.title} </td><td> {book.author} </td></tr>);
+      bookRows.push(<tr><td> {book.title} </td><td> {book.author} </td></tr>);
     });
     return (
       <div>
