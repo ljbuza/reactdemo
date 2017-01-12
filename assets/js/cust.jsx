@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, DefaultRoute, IndexRoute, IndexLink, Link, browserHistory} from 'react-router';
+import { Nav, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 // import {HomeView} from './components/home';
 
 class Menu extends React.Component {
@@ -10,14 +12,22 @@ class Menu extends React.Component {
 
   render() {
       return (
-        <div bsStyle="pills" activeKey={1} onSelect={handleSelect}>
-            <NavItem eventKey={1}><Link to="cust">Home</Link></NavItem>
-            <NavItem eventKey={2}><Link to="/stuff">Stuff</Link></NavItem>
-            <NavItem eventKey={3}><Link to="/contact">Contact</Link></NavItem>
+        <div className="container">
+        <Nav bsStyle="pills">
+            <LinkContainer to="cust" onlyActiveOnIndex={true}>
+                <NavItem>Home</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/stuff">
+                <NavItem>Stuff</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/contact">
+                <NavItem>Contact</NavItem>
+            </LinkContainer>
+        </Nav>
+        <div className="content">
+            {this.props.children}
         </div>
-            <div className="content">
-              {this.props.children}
-            </div>
+        </div>
       );
   }
 }
