@@ -88,9 +88,6 @@ class SearchableBooksTable extends React.Component {
 }
 
 class BooksTable extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //  }
 
   render() {
     const bookRows = [];
