@@ -1,4 +1,3 @@
-{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,8 +5,7 @@
         <title>Hello React</title>
     </head>
     <body>
-        <div class="container" id="container">
-        </div>
-        {% render_bundle 'main' %}
+        <div class="container" id="container"><%- markup -%></div>
+        <script src="assets/bundles/main-bundle.js"></script>
     </body>
 </html>
