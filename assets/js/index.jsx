@@ -117,7 +117,7 @@ SearchableBooksTable.propTypes = {
 };
 
 SearchableBooksTable.defaultProps = {
-  url: '/demo/',
+  url: '/api/books/',
   pollInterval: 1000,
 };
 

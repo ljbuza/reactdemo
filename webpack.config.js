@@ -14,6 +14,7 @@ module.exports = {
   entry: {
     main: './assets/js/index',
     cust: './assets/js/cust',
+    index: './assets/index',
   },
 
   output: {
@@ -40,6 +41,11 @@ module.exports = {
   ],
 
   devtool: 'eval-source-map',
+
+  scripts: {
+    watch: './node_modules/.bin/webpack -d --watch',
+    build: './node_modules/.bin/webpack',
+  },
 
   module: {
     loaders: [
